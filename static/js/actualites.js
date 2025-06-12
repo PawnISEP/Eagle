@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
       if (theme === "light") {
-        logoImage.src = "../public/images/logo2.png" // Utilise le logo noir pour le thème clair
+        logoImage.src = "{{ url_for('static', filename='images/logo2.png') }}" // Utilise le logo noir pour le thème clair
       } else {
-        logoImage.src = "../public/images/logo1.png" // Utilise le logo blanc pour le thème sombre
+        logoImage.src = "{{ url_for('static', filename='images/logo1.png') }}" // Utilise le logo blanc pour le thème sombre
       }
     }
   }
@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fonction pour récupérer et afficher les articles d'actualités de l'API GNews
   const fetchNewsArticles = async () => {
-    const API_KEY = process.env.NEXT_PUBLIC_GNEWS_API_KEY // Votre clé API GNews
+    // Utilise la variable globale injectée par Flask
+    const API_KEY = window.GNEWS_API_KEY
     const query = "cybersécurité"
     const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=fr&max=9&token=${API_KEY}`
 
