@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
       if (theme === "light") {
-      if (theme === "light") {
       logoImage.src = "/static/images/logo2.png"
       } else {
       logoImage.src = "/static/images/logo1.png"
