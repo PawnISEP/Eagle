@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eagle - Accueil</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/accueil.css') }}">
+  <!-- Le logo par défaut est logo1.png (blanc) pour le mode sombre initial -->
+  <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}" type="image/png">
+</head>
+<body data-theme="dark">
+  <header class="navbar">
+      <a href="{{ url_for('accueil') }}" class="logo-link">
+          <div class="logo-container">
+              <!-- L'image du logo sera mise à jour par JavaScript -->
+              <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Eagle Logo" class="logo-image">
+          </div>
+          <span class="logo-text">EAGLE</span>
+      </a>
+
+      <nav class="nav-links">
+          <button class="nav-button primary-button" onclick="window.location.href='{{ url_for('accueil') }}'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              Vérifier mes données
+          </button>
+          <button class="nav-button" onclick="window.location.href='{{ url_for('generateur_mot_de_passe') }}'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              Générateur de mot de passe
+          </button>
+          <button class="nav-button" onclick="window.location.href='{{ url_for('actualites') }}'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h2"></path><path d="M18 6h-8"></path><path d="M18 10h-8"></path><path d="M18 14h-8"></path><path d="M18 18h-8"></path></svg>
+              Actualités
+          </button>
+          <button class="nav-button" onclick="window.location.href='{{ url_for('contact') }}'">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              Contact
+          </button>
+      </nav>
+
+      <button id="theme-toggle" class="nav-button theme-toggle-button">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1-1.41"></path></svg>
+          Sombre
+      </button>
+  </header>
+
+  <!-- Conteneur pour la vidéo et le contenu d'accueil -->
+  <div class="hero-section-with-video">
+      <video autoplay loop muted playsinline class="background-video">
+          <source src="{{ url_for('static', filename='abstract-background.mp4') }}" type="video/mp4">
+          Votre navigateur ne supporte pas la balise vidéo.
+      </video>
+      <div class="hero-content-overlay">
+          <!-- Le nombre de cyberattaques avec l'effet shimmer -->
+          <div id="cyber-attack-number" class="shimmer-text"></div>
+          <p class="cyber-attack-text">nouvelles cyberattaques en cours.</p>
+          <div class="search-bar-container">
+              <input type="text" id="search-input" placeholder="Vérifier une donnée" class="search-input">
+              <select id="dropdown-choice" class="dropdown-select">
+                  <option value="">Choix</option>
+                  <option value="email">Adresse email</option>
+                  <option value="password">Mot de passe</option>
+              </select>
+              <button id="search-button" class="search-button">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                  Rechercher
+              </button>
+          </div>
+      </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loader" class="loader hidden">
+      <div class="spinner"></div>
+      <p>Chargement...</p>
+  </div>
+
+  <!-- Conteneur pour les résultats de recherche -->
+  <div id="results-display" class="results-container hidden"></div>
+
+  <main class="main-content">
+      <!-- Nouvelle section de présentation -->
+      <section class="presentation-section">
+          <div class="presentation-content">
+              <h2>Renforcez votre sécurité numérique avec EAGLE</h2>
+              <p>EAGLE est une plateforme dédiée à l'amélioration de votre posture de sécurité en ligne. Nous proposons des outils essentiels pour vous aider à identifier les vulnérabilités potentielles et à adopter des pratiques de protection robustes.</p>
+              <p>Nos services incluent la vérification de l'exposition de vos données personnelles, un générateur de mots de passe pour créer des identifiants complexes et uniques, ainsi qu'une section d'actualités pour vous tenir informé des dernières évolutions en cybersécurité. Notre objectif est de vous fournir les ressources nécessaires pour naviguer sur internet avec une confiance accrue.</p>
+          </div>
+          <div class="presentation-image-container">
+              <img src="{{ url_for('static', filename='images/hacker.png') }}" alt="Concept de sécurité informatique" class="presentation-image" />
+          </div>
+      </section>
+
+      <!-- Nouvelle section FAQ (initialement cachée) -->
+      <section id="faq-section" class="faq-section hidden">
+          <div class="faq-header">
+              <h2>Questions fréquentes sur la sécurité numérique</h2>
+              <p>Vous avez des questions concernant la sécurité de vos données et l'utilisation de nos outils ? Nous avons les réponses, ci-dessous !</p>
+          </div>
+          <div class="faq-list">
+              <div class="faq-item">
+                  <details>
+                      <summary>Le générateur de mot de passe d'EAGLE présente-t-il des risques ?</summary>
+                      <div class="faq-answer">
+                          <p>Non, notre générateur de mots de passe est conçu pour créer des combinaisons aléatoires et complexes, sans stocker ni transmettre les mots de passe générés. Il fonctionne localement dans votre navigateur pour garantir votre confidentialité.</p>
+                      </div>
+                  </details>
+              </div>
+              <div class="faq-item">
+                  <details>
+                      <summary>Pourquoi utiliser un générateur de mot de passe ?</summary>
+                      <div class="faq-answer">
+                          <p>Un générateur de mot de passe crée des mots de passe forts et uniques, difficiles à deviner ou à craquer. Cela réduit considérablement le risque de piratage de vos comptes en ligne, surtout face aux attaques par force brute ou par dictionnaire.</p>
+                      </div>
+                  </details>
+              </div>
+              <div class="faq-item">
+                  <details>
+                      <summary>Doit-on utiliser un mot de passe différent pour chaque compte ?</summary>
+                      <div class="faq-answer">
+                          <p>Oui, absolument. L'utilisation d'un mot de passe unique pour chaque service est une pratique essentielle. Si un service est compromis, vos autres comptes resteront sécurisés. C'est la meilleure défense contre le "credential stuffing".</p>
+                      </div>
+                  </details>
+              </div>
+              <div class="faq-item">
+                  <details>
+                      <summary>Quels sont les risques d'une fuite de données ?</summary>
+                      <div class="faq-answer">
+                          <p>Une fuite de données peut exposer vos informations personnelles (emails, mots de passe, noms, etc.) à des acteurs malveillants. Cela peut mener à l'usurpation d'identité, des fraudes financières, ou le piratage de vos autres comptes si vous réutilisez des mots de passe.</p>
+                      </div>
+                  </details>
+              </div>
+              <div class="faq-item">
+                  <details>
+                      <summary>Comment EAGLE protège-t-il mes données ?</summary>
+                      <div class="faq-answer">
+                          <p>EAGLE vous aide à vérifier si vos données ont été compromises en utilisant des bases de données publiques de fuites connues, comme Have I Been Pwned. Nous ne stockons aucune de vos données personnelles et nos outils fonctionnent de manière sécurisée pour vous informer sans compromettre votre confidentialité.</p>
+                      </div>
+                  </details>
+              </div>
+          </div>
+      </section>
+  </main>
+
+  <!-- Nouveau pied de page -->
+  <footer class="app-footer">
+      <div class="footer-links">
+          <button class="footer-button" onclick="window.location.href='{{ url_for('conditions_utilisation') }}'">Conditions d'utilisation</button>
+          <button class="footer-button" onclick="window.location.href='{{ url_for('politique_confidentialite') }}'">Politique de confidentialité</button>
+          <button class="footer-button" onclick="window.location.href='{{ url_for('protection_donnees') }}'">Protection des données</button>
+          <button class="footer-button" onclick="window.location.href='{{ url_for('mentions_legales') }}'">Mentions légales</button>
+          <button class="footer-button" onclick="window.location.href='{{ url_for('a_propos') }}'">À propos de nous</button>
+      </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/accueil.js') }}"></script>
+</body>
+</html>
