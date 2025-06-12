@@ -1,0 +1,663 @@
+:root {
+  /* Couleurs du thème clair */
+  --couleur-fond-clair: #eef2f6;
+  --couleur-texte-clair: #333;
+  --bordure-navbar-clair: rgba(0, 0, 0, 0.1);
+  --fond-bouton-clair: rgba(255, 255, 255, 0.7);
+  --texte-bouton-clair: #333;
+  --texte-bouton-primaire-clair: #4a90e2; /* Bleu Eagle */
+  --couleur-icone-clair: #333;
+  --fond-carte-resultat-clair: white;
+  --texte-carte-resultat-clair: #333;
+  --fond-presentation-clair: #eef2f6;
+  --fond-pied-page-clair: #eef2f6;
+  --fond-bouton-pied-page-clair: white;
+
+  /* Couleurs du thème sombre */
+  --couleur-fond-sombre: #1a202c;
+  --couleur-texte-sombre: #e2e8f0;
+  --bordure-navbar-sombre: rgba(45, 55, 72, 0.8);
+  --fond-bouton-sombre: rgba(45, 55, 72, 0.7);
+  --texte-bouton-sombre: #e2e8f0;
+  --texte-bouton-primaire-sombre: #4a90e2; /* Bleu Eagle */
+  --couleur-icone-sombre: #e2e8f0;
+  --fond-carte-resultat-sombre: #1a202c;
+  --texte-carte-resultat-sombre: #e2e8f0;
+  --fond-presentation-sombre: #1a202c;
+  --fond-pied-page-sombre: #1a202c;
+  --fond-bouton-pied-page-sombre: #2d3748;
+  --texte-bouton-pied-page-sombre: #e2e8f0;
+
+  /* Variables générales */
+  --rayon-bordure: 9999px;
+  --ombre: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --hauteur-navbar: 88px;
+
+  /* Couleurs de l'effet Shimmer */
+  --rouge-scintillant: rgb(238, 12, 93);
+  --couleur-base-scintillante-clair: var(--rouge-scintillant);
+  --couleur-gradient-scintillante-clair: var(--rouge-scintillant);
+  --couleur-base-scintillante-sombre: var(--rouge-scintillant);
+  --couleur-gradient-scintillante-sombre: var(--rouge-scintillant);
+
+  /* Couleurs spécifiques au générateur de mot de passe */
+  --fond-generateur-clair: #fdf5e6;
+  --fond-generateur-sombre: #2d3748;
+  --fond-carte-generateur-clair: #ffffff;
+  --fond-carte-generateur-sombre: #1a202c;
+  --bordure-generateur-clair: #e0e0e0;
+  --bordure-generateur-sombre: #4a5568;
+  --couleur-accent-generateur: #f7924c; /* Orange de l'image */
+  --texte-generateur-clair: #333;
+  --texte-generateur-sombre: #e2e8f0;
+
+  /* Couleur spécifique pour le fond de la section de force */
+  --fond-section-force: var(--couleur-fond-clair);
+  --bordure-carte-force: #f7924c; /* Bordure orange de l'image */
+  --texte-carte-force: #555;
+}
+
+/* Styles généraux du corps de la page */
+body {
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: var(--couleur-fond-clair);
+  color: var(--couleur-texte-clair);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body[data-theme="dark"] {
+  background-color: var(--couleur-fond-sombre);
+  color: var(--couleur-texte-sombre);
+}
+
+/* Barre de navigation */
+.navbar {
+  position: fixed;
+  top: 1rem;
+  width: 95%;
+  max-width: 1200px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: var(--rayon-bordure);
+  box-shadow: var(--ombre);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 50;
+  border: 1px solid var(--bordure-navbar-clair);
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: border-color 0.5s ease, background-color 0.5s ease, opacity 0.3s ease, visibility 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.navbar.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+body[data-theme="dark"] .navbar {
+  border: 1px solid var(--bordure-navbar-sombre);
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  margin-left: 4px;
+}
+
+.logo-container {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  margin-right: 1rem;
+}
+
+.logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: none;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--couleur-texte-clair);
+  transition: color 0.5s ease;
+}
+
+body[data-theme="dark"] .logo-text {
+  color: var(--couleur-texte-sombre);
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-button {
+  background-color: var(--fond-bouton-clair);
+  color: var(--texte-bouton-clair);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--rayon-bordure);
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.5s ease, transform 0.2s ease, color 0.5s ease;
+}
+
+body[data-theme="dark"] .nav-button {
+  background-color: var(--fond-bouton-sombre);
+  color: var(--texte-bouton-sombre);
+}
+
+.nav-button:hover {
+  transform: scale(1.05);
+}
+
+.nav-button .icon {
+  margin-right: 0.5rem;
+  color: var(--couleur-icone-clair);
+  transition: color 0.5s ease;
+}
+
+body[data-theme="dark"] .nav-button .icon {
+  color: var(--couleur-icone-sombre);
+}
+
+.primary-button {
+  color: var(--texte-bouton-primaire-clair);
+}
+
+body[data-theme="dark"] .primary-button {
+  color: var(--texte-bouton-primaire-sombre);
+}
+
+.theme-toggle-button .icon {
+  font-size: 1.2rem;
+}
+
+.theme-toggle-button .sun-icon {
+  display: inline-block;
+}
+.theme-toggle-button .moon-icon {
+  display: none;
+}
+
+body[data-theme="dark"] .theme-toggle-button .sun-icon {
+  display: none;
+}
+body[data-theme="dark"] .theme-toggle-button .moon-icon {
+  display: inline-block;
+}
+
+/* Section Héro pour la page du générateur de mot de passe */
+.password-generator-hero {
+  text-align: center;
+  padding-top: calc(var(--hauteur-navbar) + 2rem);
+  padding-bottom: 1rem;
+  color: var(--couleur-texte-clair);
+  transition: color 0.5s ease;
+}
+
+body[data-theme="dark"] .password-generator-hero {
+  color: var(--couleur-texte-sombre);
+}
+
+.password-generator-hero .hero-title {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  animation: fade-in 1s ease-out;
+}
+
+.password-generator-hero .hero-subtitle {
+  font-size: 1.2em;
+  font-weight: bold;
+  opacity: 0;
+  animation: fade-in 1s ease-out 0.5s forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Section des contrôles du générateur */
+.generator-controls-section {
+  width: 95%;
+  max-width: 800px;
+  margin: 1rem auto;
+  padding: 2.5rem;
+  background-color: var(--fond-carte-generateur-clair);
+  border-radius: 1.5rem;
+  box-shadow: var(--ombre);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: background-color 0.5s ease;
+}
+
+body[data-theme="dark"] .generator-controls-section {
+  background-color: var(--fond-generateur-sombre);
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--texte-generateur-clair);
+  transition: color 0.5s ease;
+}
+
+body[data-theme="dark"] .control-group {
+  color: var(--texte-generateur-sombre);
+}
+
+.control-group label {
+  white-space: nowrap;
+}
+
+#password-length {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  background: #e0e0e0;
+  outline: none;
+  border-radius: 5px;
+  transition: background-color 0.5s ease;
+}
+
+body[data-theme="dark"] #password-length {
+  background: #4a5568;
+}
+
+#password-length::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  background: var(--couleur-accent-generateur);
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+#password-length::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  background: var(--couleur-accent-generateur);
+  border-radius: 50%;
+  cursor: grab;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease;
+}
+
+.character-options {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem 2.5rem;
+}
+
+/* Checkbox personnalisée */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 0;
+  cursor: pointer;
+  font-size: 1.1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: normal;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 24px;
+  width: 24px;
+  background-color: #eee;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  border: 2px solid #ccc;
+}
+
+body[data-theme="dark"] .checkmark {
+  background-color: #4a5568;
+  border-color: #636e72;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #ddd;
+  border-color: #bbb;
+}
+
+body[data-theme="dark"] .checkbox-container:hover input ~ .checkmark {
+  background-color: #636e72;
+  border-color: #7f8c8d;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--couleur-accent-generateur);
+  border-color: var(--couleur-accent-generateur);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 8px;
+  top: 4px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Section des résultats du mot de passe */
+.password-results-section {
+  width: 95%;
+  max-width: 1200px;
+  margin-top: 2rem;
+  margin-bottom: -15px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 2rem;
+}
+
+.password-instruction-text {
+  text-align: center;
+  font-style: italic;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  color: var(--couleur-texte-clair);
+  transition: color 0.5s ease;
+}
+
+body[data-theme="dark"] .password-instruction-text {
+  color: var(--couleur-texte-sombre);
+}
+
+.password-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Bulle de mot de passe */
+.password-bubble {
+  background-color: var(--fond-carte-generateur-clair);
+  color: var(--texte-generateur-clair);
+  border: 1px solid var(--bordure-generateur-clair);
+  border-radius: 1.5rem;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  font-size: 1rem;
+  font-family: "Courier New", Courier, monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  user-select: all;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+body[data-theme="dark"] .password-bubble {
+  background-color: var(--fond-carte-generateur-sombre);
+  color: var(--texte-generateur-sombre);
+  border-color: var(--bordure-generateur-sombre);
+}
+
+.password-bubble:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.password-bubble.copied {
+  background-color: #22c55e;
+  color: white;
+  border-color: #22c55e;
+  transform: scale(0.98);
+}
+
+/* Section de la force du mot de passe */
+.password-strength-section {
+  background-color: var(--fond-section-force);
+  color: var(--couleur-texte-clair);
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-top: -15px;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body[data-theme="dark"] .password-strength-section {
+  background-color: var(--couleur-fond-sombre);
+  color: var(--couleur-texte-sombre);
+}
+
+.strength-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+  color: black;
+  transition: color 0.5s ease;
+}
+
+body[data-theme="dark"] .strength-title {
+  color: white;
+}
+
+.strength-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.strength-card {
+  background-color: white;
+  border: 1px solid var(--bordure-carte-force);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  flex: 1 1 280px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  border-color: var(--bordure-carte-force);
+}
+
+body[data-theme="dark"] .strength-card {
+  background-color: white;
+  border-color: var(--bordure-carte-force);
+}
+
+.strength-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.strength-card .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: black;
+  transition: color 0.5s ease;
+}
+
+body[data-theme="dark"] .strength-card .card-title {
+  color: black;
+}
+
+.strength-card .card-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--texte-carte-force);
+}
+
+body[data-theme="dark"] .strength-card .card-description {
+  color: var(--texte-carte-force);
+}
+
+/* Pied de page */
+.app-footer {
+  background-color: var(--fond-pied-page-clair);
+  color: var(--texte-bouton-pied-page-clair);
+  padding: 1rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  margin-top: -4px;
+}
+
+body[data-theme="dark"] .app-footer {
+  background-color: var(--fond-pied-page-sombre);
+  color: var(--texte-bouton-pied-page-sombre);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.footer-button {
+  background-color: var(--fond-bouton-pied-page-clair);
+  color: var(--texte-bouton-pied-page-clair);
+  border: 2px solid black;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--rayon-bordure);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+}
+
+body[data-theme="dark"] .footer-button {
+  background-color: var(--fond-bouton-pied-page-sombre);
+  color: var(--texte-bouton-pied-page-sombre);
+  border-color: var(--couleur-texte-sombre);
+}
+
+.footer-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustements responsifs */
+@media (max-width: 768px) {
+  .navbar {
+    width: 90%;
+    padding: 0.75rem;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .nav-button {
+    padding: 0.5rem 0.75rem;
+  }
+  .password-generator-hero .hero-title {
+    font-size: 2em;
+  }
+  .password-generator-hero .hero-subtitle {
+    font-size: 1em;
+  }
+  .generator-controls-section {
+    padding: 1.5rem;
+    width: 90%;
+  }
+  .control-group {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .password-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0.5rem;
+  }
+  .password-bubble {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+  }
+  .password-strength-section {
+    padding: 2rem 1rem;
+  }
+  .strength-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  .strength-cards-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .strength-card {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-button {
+    width: 90%;
+    max-width: 300px;
+  }
+}
