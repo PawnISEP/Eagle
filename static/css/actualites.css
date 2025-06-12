@@ -484,3 +484,7 @@ body[data-theme="dark"] .footer-button {
     max-width: 300px;
   }
 }
+
+.hidden {
+  display: none !important;
+}
