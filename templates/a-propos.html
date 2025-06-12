@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eagle - À propos de nous</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages-legales.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}" type="image/png">
+</head>
+<body data-theme="dark">
+    <header class="navbar">
+        <a href="{{ url_for('static', filename='accueil.html') }}" class="logo-link">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Eagle Logo" class="logo-image">
+            </div>
+            <span class="logo-text">EAGLE</span>
+        </a>
+
+        <nav class="nav-links">
+            <button class="nav-button" onclick="window.location.href='{{ url_for('static', filename='accueil.html') }}'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                Vérifier mes données
+            </button>
+            <button class="nav-button" onclick="window.location.href='{{ url_for('static', filename='generateur-mot-de-passe.html') }}'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Générateur de mot de passe
+            </button>
+            <button class="nav-button" onclick="window.location.href='{{ url_for('static', filename='actualites.html') }}'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h2"></path><path d="M18 6h-8"></path><path d="M18 10h-8"></path><path d="M18 14h-8"></path><path d="M18 18h-8"></path></svg>
+                Actualités
+            </button>
+            <button class="nav-button" onclick="window.location.href='{{ url_for('static', filename='contact.html') }}'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                Contact
+            </button>
+        </nav>
+
+        <button id="theme-toggle" class="nav-button theme-toggle-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="M4.93 4.93l1.41 1.41"></path><path d="M17.66 17.66l1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="M4.93 19.07l1.41-1.41"></path><path d="M17.66 6.34l1.41-1.41"></path></svg>
+            Sombre
+        </button>
+    </header>
+
+    <main class="main-content">
+        <section class="static-hero">
+            <h1 class="hero-title">À propos de nous</h1>
+            <p class="hero-subtitle">Découvrez la mission et la vision d'Eagle pour un avenir numérique plus sûr.</p>
+        </section>
+
+        <section class="static-content-section">
+            <h2>Notre Mission</h2>
+            <p>Chez Eagle, notre mission est de démocratiser la cybersécurité. Nous croyons que chacun a le droit de naviguer sur internet en toute confiance, sans craindre les menaces numériques. C'est pourquoi nous nous engageons à fournir des outils simples, efficaces et accessibles pour aider les individus et les petites entreprises à protéger leurs informations sensibles.</p>
+
+            <h2>Notre Vision</h2>
+            <p>Nous aspirons à un monde numérique où la sécurité n'est plus une préoccupation, mais une évidence. Nous imaginons un écosystème en ligne où les utilisateurs sont autonomes face aux risques, grâce à une meilleure compréhension des enjeux et à des solutions de protection intuitives. Eagle se veut être le guide fiable dans ce voyage vers une cybersécurité renforcée.</p>
+
+            <h2>Nos Valeurs</h2>
+            <ul>
+                <li><strong>Accessibilité :</strong> Rendre la cybersécurité compréhensible et utilisable par tous.</li>
+                <li><strong>Transparence :</strong> Opérer avec honnêteté et clarté sur nos pratiques et nos outils.</li>
+                <li><strong>Innovation :</strong> Rechercher constamment de nouvelles méthodes pour anticiper et contrer les menaces.</li>
+                <li><strong>Confiance :</strong> Bâtir une relation solide avec nos utilisateurs basée sur la fiabilité et le respect de la vie privée.</li>
+                <li><strong>Éducation :</strong> Informer et sensibiliser le public aux bonnes pratiques de sécurité numérique.</li>
+            </ul>
+
+            <h2>Notre Équipe</h2>
+            <p>Nous sommes une équipe passionnée d'experts en cybersécurité, de développeurs et de designers, unis par une vision commune : rendre le web plus sûr pour tous. Chaque membre apporte son expertise unique pour créer des solutions robustes et conviviales.</p>
+
+            <h2>Contactez-nous</h2>
+            <p>Nous sommes toujours ravis d'échanger avec notre communauté. Si vous avez des questions, des suggestions ou si vous souhaitez en savoir plus sur Eagle, n'hésitez pas à nous contacter via notre page <a href="{{ url_for('static', filename='contact.html') }}">Contact</a>.</p>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-links">
+            <button class="footer-button" onclick="window.location.href='{{ url_for('static', filename='conditions-utilisation.html') }}'">Conditions d'utilisation</button>
+            <button class="footer-button" onclick="window.location.href='{{ url_for('static', filename='politique-confidentialite.html') }}'">Politique de confidentialité</button>
+            <button class="footer-button" onclick="window.location.href='{{ url_for('static', filename='protection-donnees.html') }}'">Protection des données</button>
+            <button class="footer-button" onclick="window.location.href='{{ url_for('static', filename='mentions-legales.html') }}'">Mentions légales</button>
+            <button class="footer-button primary-button" onclick="window.location.href='{{ url_for('static', filename='a-propos.html') }}'">À propos de nous</button>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/pages-legales.js') }}"></script>
+</body>
+</html>
