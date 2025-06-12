@@ -13,9 +13,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
       if (theme === "light") {
-        logoImage.src = "../public/images/logo2.png" // Utilise le logo noir pour le thème clair
+        logoImage.src = "{{ url_for('static', filename='images/logo2.png') }}"
       } else {
-        logoImage.src = "../public/images/logo1.png" // Utilise le logo blanc pour le thème sombre
+        logoImage.src = "{{ url_for('static', filename='images/logo1.png') }}"
       }
     }
   }
