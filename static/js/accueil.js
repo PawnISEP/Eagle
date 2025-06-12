@@ -24,13 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
       if (theme === "light") {
-        logoImage.src = "{{ url_for('static', filename='images/logo2.png') }}"
+      logoImage.src = "/static/images/logo2.png"
       } else {
-        logoImage.src = "{{ url_for('static', filename='images/logo1.png') }}"
+      logoImage.src = "/static/images/logo1.png"
       }
     }
   }
-
 
   // Fonction pour mettre à jour le texte et l'icône du bouton de bascule de thème
   const updateThemeToggleButton = (currentTheme) => {
