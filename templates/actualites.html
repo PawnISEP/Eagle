@@ -10,7 +10,7 @@
 </head>
 <body data-theme="dark">
     <header class="navbar">
-        <a href="{{ url_for('static', filename='accueil.html') }}" class="logo-link">
+        <a href="{{ url_for('accueil') }}" class="logo-link">
             <div class="logo-container">
                 <!-- L'image du logo sera mise à jour par JavaScript -->
                 <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Eagle Logo" class="logo-image">
@@ -72,6 +72,10 @@
         </div>
     </footer>
 
+    <!-- Injecte la clé API dans une variable globale JavaScript -->
+    <script>
+        window.GNEWS_API_KEY = "{{ gnews_api_key }}";
+    </script>
     <script src="{{ url_for('static', filename='js/actualites.js') }}"></script>
 </body>
 </html>
