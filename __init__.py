@@ -3,6 +3,9 @@ from flask import render_template
 from flask import json
 import sqlite3
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
@@ -51,4 +54,3 @@ def a_propos():
                                                                                                                
 if __name__ == "__main__":
   app.run(debug=True)
-
