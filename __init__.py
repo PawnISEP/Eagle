@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import json
 import sqlite3
+import os
 
 app = Flask(__name__)
 
@@ -15,9 +16,12 @@ def accueil():
 def generateur_mot_de_passe():
     return render_template('generateur-mot-de-passe.html')
 
+
 @app.route('/actualites')
 def actualites():
-    return render_template('actualites.html')
+    # Récupère la clé API de l'environnement et la passe au template
+    gnews_api_key = os.environ.get('NEXT_PUBLIC_GNEWS_API_KEY')
+    return render_template('actualites.html', gnews_api_key=gnews_api_key)
 
 @app.route('/contact')
 def contact():
