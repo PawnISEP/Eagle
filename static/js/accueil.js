@@ -183,7 +183,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   <div class="api-name-tag">${apiNameTag}</div>
                   <div class="no-results-content">
                       <p class="no-results-text"><strong>✅ Aucun résultat</strong></p>
-                      <p class="no-results-text-small">Votre adresse email n'a pas été trouvée dans les fuites de données connues.</p>
                   </div>
               `
           } else {
