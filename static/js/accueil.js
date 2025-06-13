@@ -141,8 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="result-content">
               <p>Votre mot de passe a été trouvé dans <span class="highlight-number">${pwnCount.toLocaleString("fr-FR").replace(/\u202F/g, " ")}</span> fuites de données.</p>
-              <p>Action recommandée : Changez votre mot de passe immédiatement à l'aide de notre <a href="generateur-mot-de-passe.html" class="action-link">générateur de mot de passe</a>.</p>
-            </div>
+              <p>Action recommandée : Changez votre mot de passe immédiatement à l'aide de notre <a href="{{ url_for('generateur_mot_de_passe') }}" class="action-link">générateur de mot de passe</a>.</p>
+            </div> 
           `
         } else {
           resultCard.classList.add("good", "no-data-found")
