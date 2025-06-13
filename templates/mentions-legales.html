@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eagle - Mentions légales</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/pages-legales.css') }}">
-  <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}" type="image/png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages-legales.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo1.png') }}" type="image/png">
 </head>
 <body data-theme="dark">
-  <header class="navbar">
-      <a href="{{ url_for('accueil') }}" class="logo-link">
-          <div class="logo-container">
-              <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Eagle Logo" class="logo-image">
-          </div>
-          <span class="logo-text">EAGLE</span>
-      </a>
+    <header class="navbar">
+        <a href="{{ url_for('accueil') }}" class="logo-link">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="Eagle Logo" class="logo-image">
+            </div>
+            <span class="logo-text">EAGLE</span>
+        </a>
 
       <nav class="nav-links">
           <button class="nav-button" onclick="window.location.href='{{ url_for('accueil') }}'">
