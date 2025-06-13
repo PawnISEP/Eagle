@@ -573,12 +573,10 @@ body[data-theme="dark"] .result-card {
 /* Styles pour le contenu "Aucun résultat" */
 .no-results-content {
   display: flex;
-  flex-direction: column; /* Changed to column for better stacking */
   justify-content: center;
   align-items: center;
   height: 100%;
   min-height: 80px;
-  gap: 0.5rem; /* Space between text elements */
 }
 
 .no-results-text {
@@ -588,18 +586,7 @@ body[data-theme="dark"] .result-card {
   margin: 0;
 }
 
-.no-results-text-small {
-  font-size: 1rem;
-  color: #666;
-  text-align: center;
-  margin: 0;
-}
-
 body[data-theme="dark"] .no-results-text {
-  color: var(--couleur-texte-sombre);
-}
-
-body[data-theme="dark"] .no-results-text-small {
   color: var(--couleur-texte-sombre);
 }
 
@@ -625,101 +612,6 @@ body[data-theme="dark"] .result-card.no-data-found {
   color: white;
 }
 
-/* Styles pour les éléments de fuite individuels */
-.breaches-list-container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem; /* Espace entre chaque carte de fuite */
-  margin-top: 1.5rem;
-}
-
-.breach-item-card {
-  background-color: var(--fond-carte-resultat-clair); /* Utilise le fond de la carte principale pour la cohérence */
-  border: 1px solid var(--bordure-navbar-clair); /* Une bordure subtile */
-  border-radius: 0.5rem; /* Légèrement moins arrondi que la carte principale */
-  padding: 1rem 1.25rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Ombre plus légère */
-  transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
-}
-
-body[data-theme="dark"] .breach-item-card {
-  background-color: #252d3a; /* Légèrement plus clair que le fond de la carte principale en mode sombre */
-  border-color: #4a5568;
-}
-
-.breach-item-card .breach-item-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.breach-item-card .breach-domain {
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 0;
-  color: black; /* Default for light theme */
-  transition: color 0.5s ease;
-}
-
-body[data-theme="dark"] .breach-item-card .breach-domain {
-  color: white; /* White for dark theme */
-}
-
-.breach-item-card .breach-date {
-  font-size: 0.9rem;
-  color: #666; /* Couleur légèrement atténuée */
-  transition: color 0.5s ease;
-}
-
-body[data-theme="dark"] .breach-item-card .breach-date {
-  color: #a0aec0;
-}
-
-.breach-item-card .breach-title {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  color: var(--texte-carte-resultat-clair);
-  transition: color 0.5s ease;
-}
-
-body[data-theme="dark"] .breach-item-card .breach-title {
-  color: var(--texte-carte-resultat-sombre);
-}
-
-.breach-item-card .breach-description {
-  font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 0.75rem;
-  color: var(--texte-carte-resultat-clair);
-  transition: color 0.5s ease;
-}
-
-body[data-theme="dark"] .breach-item-card .breach-description {
-  color: var(--texte-carte-resultat-sombre);
-}
-
-.breach-item-card .breach-data-classes {
-  font-size: 0.9rem;
-  margin-top: 0.5rem;
-  color: var(--texte-carte-resultat-clair);
-  transition: color 0.5s ease;
-}
-
-body[data-theme="dark"] .breach-item-card .breach-data-classes {
-  color: var(--texte-carte-resultat-sombre);
-}
-
-.breach-item-card .breach-data-classes strong {
-  color: var(--rouge-scintillant); /* Met en évidence les classes de données */
-}
-
-.breach-item-card .breach-data-classes span {
-  font-weight: normal;
-}
-
 /* Ajustements responsifs pour les résultats */
 @media (max-width: 768px) {
   .results-container {
@@ -738,18 +630,6 @@ body[data-theme="dark"] .breach-item-card .breach-data-classes {
   }
   .no-results-text {
     font-size: 1.2rem;
-  }
-  .breach-item-card {
-    padding: 0.8rem 1rem;
-  }
-  .breach-item-card .breach-domain {
-    font-size: 1rem;
-  }
-  .breach-item-card .breach-date,
-  .breach-item-card .breach-title,
-  .breach-item-card .breach-description,
-  .breach-item-card .breach-data-classes {
-    font-size: 0.85rem;
   }
 }
 
