@@ -23,10 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
     updateThemeToggleButton(theme)
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
+      // Correction: Utilisation de chemins statiques directs pour JavaScript
       if (theme === "light") {
-        logoImage.src = "{{ url_for('static', filename='images/logo2.png') }}" // Utilise le logo noir pour le thème clair
+        logoImage.src = "/static/images/logo2.png" // Utilise le logo noir pour le thème clair
       } else {
-        logoImage.src = "{{ url_for('static', filename='images/logo1.png') }}" // Utilise le logo blanc pour le thème sombre
+        logoImage.src = "/static/images/logo1.png" // Utilise le logo blanc pour le thème sombre
       }
     }
   }
