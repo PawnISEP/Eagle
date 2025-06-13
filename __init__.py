@@ -13,7 +13,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def accueil():
-    return render_template('accueil.html')
+    hibp_api_key = os.environ.get('NEXT_PUBLIC_HIBP_API_KEY')
+    return render_template('accueil.html', hibp_api_key=hibp_api_key)
 
 @app.route('/generateur-mot-de-passe')
 def generateur_mot_de_passe():
