@@ -1,3 +1,5 @@
+/* Styles pour la page d'accueil - Version 2.0 */
+
 :root {
   /* Couleurs du thème clair */
   --couleur-fond-clair: #eef2f6;
@@ -657,13 +659,13 @@ body[data-theme="dark"] .breach-item-card {
 .breach-item-card .breach-domain {
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--couleur-texte-clair); /* White in dark mode, black in light mode */
+  color: var(--couleur-texte-clair); /* Default to light theme text color */
   transition: color 0.5s ease;
   margin: 0; /* Remove default margin from h4 */
 }
 
 body[data-theme="dark"] .breach-item-card .breach-domain {
-  color: white;
+  color: white; /* White in dark mode as requested */
 }
 
 .breach-item-card .breach-date {
