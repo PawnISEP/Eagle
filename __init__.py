@@ -11,7 +11,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def accueil():
-    # La clé API HIBP n'est plus passée directement au frontend
     return render_template('accueil.html')
 
 @app.route('/generateur-mot-de-passe')
