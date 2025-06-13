@@ -657,42 +657,31 @@ body[data-theme="dark"] .breach-item-card {
 .breach-item-card .breach-domain {
   font-size: 1.1rem;
   font-weight: bold;
-  color: var(--texte-carte-resultat-clair); /* Dark text for light theme */
+  color: var(--couleur-texte-clair); /* White in dark mode, black in light mode */
   transition: color 0.5s ease;
+  margin: 0; /* Remove default margin from h4 */
 }
 
 body[data-theme="dark"] .breach-item-card .breach-domain {
-  color: var(--texte-carte-resultat-sombre); /* Light text for dark theme */
+  color: white;
 }
 
 .breach-item-card .breach-date {
   font-size: 0.9rem;
-  color: #666; /* Couleur légèrement atténuée */
+  color: #666; /* Slightly muted color */
   transition: color 0.5s ease;
+  white-space: nowrap; /* Prevent date from wrapping */
 }
 
 body[data-theme="dark"] .breach-item-card .breach-date {
   color: #a0aec0;
 }
 
-.breach-item-card .breach-title {
-  font-size: 1rem;
-  font-weight: bold;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  color: var(--texte-carte-resultat-clair);
-  transition: color 0.5s ease;
-}
-
-body[data-theme="dark"] .breach-item-card .breach-title {
-  color: var(--texte-carte-resultat-sombre);
-}
-
 .breach-item-card .breach-description {
   font-size: 0.95rem;
   line-height: 1.5;
   margin-bottom: 0.75rem;
-  text-align: justify; /* Justified text as requested */
+  text-align: justify; /* Justify the description */
   color: var(--texte-carte-resultat-clair);
   transition: color 0.5s ease;
 }
@@ -713,7 +702,7 @@ body[data-theme="dark"] .breach-item-card .breach-data-classes {
 }
 
 .breach-item-card .breach-data-classes strong {
-  color: var(--rouge-scintillant); /* Met en évidence les classes de données */
+  color: var(--rouge-scintillant); /* Highlight data classes */
 }
 
 .breach-item-card .breach-data-classes span {
@@ -722,25 +711,13 @@ body[data-theme="dark"] .breach-item-card .breach-data-classes {
 
 /* Ajustements responsifs pour les résultats */
 @media (max-width: 768px) {
-  .results-container {
-    width: 90%;
-    margin: 1.5rem auto -0.5rem auto;
-  }
-  .result-card {
-    padding: 1rem;
-  }
-  .result-title {
-    font-size: 1.1rem;
-  }
-  .api-name-tag {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-  }
-  .no-results-text {
-    font-size: 1.2rem;
-  }
   .breach-item-card {
     padding: 0.8rem 1rem;
+  }
+  .breach-item-card .breach-item-header {
+    flex-direction: column; /* Stack domain and date on small screens */
+    align-items: flex-start;
+    gap: 0.25rem;
   }
   .breach-item-card .breach-domain {
     font-size: 1rem;
