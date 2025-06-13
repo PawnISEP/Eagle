@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 # === ROUTES PRINCIPALES ===
 
-@app.route('/', endpoint='accueil'))
+@app.route('/', endpoint='accueil')
 def accueil():
     return render_template('accueil.html')
 
