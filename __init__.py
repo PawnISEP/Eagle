@@ -47,7 +47,7 @@ def mentions_legales():
 
 @app.route('/propos')
 def a_propos():
-    return render_template('a_propos.html')
+    return render_template('a-propos.html')
 
 # === NOUVELLE ROUTE PROXY POUR HIBP ===
 @app.route('/api/check-email-breach', methods=['GET'])
