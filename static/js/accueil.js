@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const presentationSection = document.querySelector(".presentation-section")
   const faqSection = document.getElementById("faq-section")
   const logoImage = document.querySelector(".logo-image")
-  const passwordToggle = document.getElementById("password-toggle")
-  const passwordToggleIcon = passwordToggle.querySelector("svg")
 
   // Décalage pour le défilement (20px d'espace)
   const SCROLL_OFFSET = 20
@@ -270,30 +268,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Gère le clic sur le bouton de recherche
   searchButton.addEventListener("click", handleSearch)
-
-    // Event listener for dropdown choice
-  dropdownChoice.addEventListener("change", () => {
-    if (dropdownChoice.value === "password") {
-      searchInput.type = "password"
-      passwordToggle.classList.remove("hidden")
-      // Ensure the eye icon is initially 'eye' when password mode is activated
-      passwordToggleIcon.innerHTML = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>`
-    } else {
-      searchInput.type = "text"
-      passwordToggle.classList.add("hidden")
-    }
-  })
-
-  // Event listener for password toggle button
-  passwordToggle.addEventListener("click", () => {
-    if (searchInput.type === "password") {
-      searchInput.type = "text"
-      passwordToggleIcon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-10-7-10-7a1.8 1.8 0 0 1 0-2.66M6.76 6.76A10.07 10.07 0 0 1 12 4c7 0 10 7 10 7a1.8 1.8 0 0 1 0 2.66M10 12a2 2 0 1 0 4 0M2 2l20 20"/>` // eye-off icon
-    } else {
-      searchInput.type = "password"
-      passwordToggleIcon.innerHTML = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>` // eye icon
-    }
-  })
 
   // Écoute les événements de touche sur le document pour déclencher la recherche avec Entrée
   document.addEventListener("keydown", (event) => {
@@ -622,11 +596,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Écoute les événements de défilement pour basculer la visibilité de la barre de navigation
   window.addEventListener("scroll", handleScroll)
-
-  if (dropdownChoice.value === "password") {
-    searchInput.type = "password"
-    passwordToggle.classList.remove("hidden")
-  }
 
   // Mise à jour initiale du nombre de cyberattaques
   updateCyberAttackNumber()
