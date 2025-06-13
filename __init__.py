@@ -14,6 +14,7 @@ app = Flask(__name__)
 @app.route('/')
 def accueil():
     hibp_api_key = os.environ.get('NEXT_PUBLIC_HIBP_API_KEY')
+    print(f"Clé API HIBP lue par Flask: {hibp_api_key}") # Ligne de débogage temporaire
     return render_template('accueil.html', hibp_api_key=hibp_api_key)
 
 @app.route('/generateur-mot-de-passe')
