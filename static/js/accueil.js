@@ -224,14 +224,13 @@ document.addEventListener("DOMContentLoaded", () => {
                   : ""
 
               breachItemCard.innerHTML = `
-                    <div class="breach-item-header">
-                        <h4 class="breach-domain">${breach.Domain}</h4>
-                        <span class="breach-date">${publishedDate}</span>
-                    </div>
-                    <h5 class="breach-title">${breach.Title}</h5>
-                    <p class="breach-description">${breach.Description}</p>
-                    ${dataClassesHtml}
-                `
+    <div class="breach-item-header">
+        <h4 class="breach-domain">${breach.Title} (${breach.Domain})</h4>
+        <span class="breach-date">${publishedDate}</span>
+    </div>
+    <p class="breach-description">${breach.Description}</p>
+    ${dataClassesHtml}
+`
               breachesListContainer.appendChild(breachItemCard)
             })
           }
