@@ -24,9 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
       if (theme === "light") {
-      logoImage.src = "/static/images/logo1.png"
+        logoImage.src = "{{ url_for('static', filename='images/logo2.png') }}" // Utilise le logo noir pour le thème clair
       } else {
-      logoImage.src = "/static/images/logo1.png"
+        logoImage.src = "{{ url_for('static', filename='images/logo1.png') }}" // Utilise le logo blanc pour le thème sombre
       }
     }
   }
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const resultCard = document.createElement("div")
         resultCard.classList.add("result-card")
 
-        const apiNameTag = "API HaveIBeenPwned"
+        const apiNameTag = "API HaveIBeenPwned (Mot de passe)"
 
         if (pwnCount > 0) {
           resultCard.classList.add("bad")
@@ -168,63 +168,54 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         }, 350)
       } else if (selectedCategory === "email") {
-        const API_KEY = typeof HIBP_API_KEY !== "undefined" ? HIBP_API_KEY : null // Récupère la clé API injectée par Flask
-        if (!API_KEY) {
-          throw new Error("Clé API HaveIBeenPwned non configurée. Veuillez contacter l'administrateur.")
-        }
-
-        const url = `https://haveibeenpwned.com/api/v3/breachedaccount/${encodeURIComponent(inputValue)}?truncateResponse=false`
-        const response = await fetch(url, {
-          headers: {
-            "hibp-api-key": API_KEY,
-            "User-Agent": "Eagle-Security-App", // Recommandé par HIBP
-          },
-        })
+        // Appel à la nouvelle route proxy Flask au lieu de l'API HIBP directe
+        const response = await fetch(`/api/check-email-breach?email=${encodeURIComponent(inputValue)}`)
 
         const apiNameTag = "API HaveIBeenPwned (Adresse email)"
         const resultCard = document.createElement("div")
         resultCard.classList.add("result-card")
 
-        if (response.status === 404) {
-          // No breaches found
-          resultCard.classList.add("good", "no-data-found")
-          resultCard.innerHTML = `
-                <div class="api-name-tag">${apiNameTag}</div>
-                <div class="no-results-content">
-                    <p class="no-results-text"><strong>✅ Aucun résultat</strong></p>
-                    <p class="no-results-text-small">Votre adresse email n'a pas été trouvée dans les fuites de données connues.</p>
-                </div>
-            `
-        } else if (response.ok) {
+        if (response.status === 200) {
           const breaches = await response.json()
-          resultCard.classList.add("bad")
-          const breachesListHtml = breaches
-            .map(
-              (breach) => `
-                <li>
-                    <strong>${breach.Title}</strong> (${breach.Domain}) - Date de la fuite: ${new Date(breach.BreachDate).toLocaleDateString("fr-FR")}
-                    <p>${breach.Description}</p>
-                    ${breach.DataClasses && breach.DataClasses.length > 0 ? `<p>Données exposées: ${breach.DataClasses.join(", ")}</p>` : ""}
-                </li>
-            `,
-            )
-            .join("")
+          if (breaches.length === 0) {
+            resultCard.classList.add("good", "no-data-found")
+            resultCard.innerHTML = `
+                  <div class="api-name-tag">${apiNameTag}</div>
+                  <div class="no-results-content">
+                      <p class="no-results-text"><strong>✅ Aucun résultat</strong></p>
+                      <p class="no-results-text-small">Votre adresse email n'a pas été trouvée dans les fuites de données connues.</p>
+                  </div>
+              `
+          } else {
+            resultCard.classList.add("bad")
+            const breachesListHtml = breaches
+              .map(
+                (breach) => `
+                  <li>
+                      <strong>${breach.Title}</strong> (${breach.Domain}) - Date de la fuite: ${new Date(breach.BreachDate).toLocaleDateString("fr-FR")}
+                      <p>${breach.Description}</p>
+                      ${breach.DataClasses && breach.DataClasses.length > 0 ? `<p>Données exposées: ${breach.DataClasses.join(", ")}</p>` : ""}
+                  </li>
+              `,
+              )
+              .join("")
 
-          resultCard.innerHTML = `
-                <div class="api-name-tag">${apiNameTag}</div>
-                <div class="result-header">
-                    <div class="result-icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
-                    <h3 class="result-title">Données compromises</h3>
-                </div>
-                <div class="result-content">
-                    <p>Votre adresse email a été trouvée dans <span class="highlight-number">${breaches.length}</span> fuite(s) de données :</p>
-                    <ul>${breachesListHtml}</ul>
-                    <p>Action recommandée : Changez votre mot de passe pour les services concernés et activez l'authentification à deux facteurs.</p>
-                </div>
-            `
+            resultCard.innerHTML = `
+                  <div class="api-name-tag">${apiNameTag}</div>
+                  <div class="result-header">
+                      <div class="result-icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
+                      <h3 class="result-title">Données compromises</h3>
+                  </div>
+                  <div class="result-content">
+                      <p>Votre adresse email a été trouvée dans <span class="highlight-number">${breaches.length}</span> fuite(s) de données :</p>
+                      <ul>${breachesListHtml}</ul>
+                      <p>Action recommandée : Changez votre mot de passe pour les services concernés et activez l'authentification à deux facteurs.</p>
+                  </div>
+              `
+          }
         } else {
           const errorData = await response.json().catch(() => ({ message: response.statusText }))
-          throw new Error(`Erreur API HaveIBeenPwned: ${response.status} - ${errorData.message || response.statusText}`)
+          throw new Error(`Erreur du serveur Flask: ${response.status} - ${errorData.error || response.statusText}`)
         }
 
         resultsDisplay.appendChild(resultCard)
@@ -244,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       console.error("Erreur lors de la recherche:", error)
-      resultsDisplay.innerHTML = `<p style="text-align: center; color: var(--shimmer-red);">Une erreur est survenue lors de la recherche. Veuillez réessayer.</p>`
+      resultsDisplay.innerHTML = `<p style="text-align: center; color: var(--rouge-scintillant);">Une erreur est survenue lors de la recherche : ${error.message}. Veuillez réessayer.</p>`
       resultsDisplay.classList.remove("hidden")
     } finally {
       loaderElement.classList.add("hidden") // Cacher le loader
