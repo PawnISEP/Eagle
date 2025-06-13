@@ -20,13 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const setTheme = (theme) => {
     body.setAttribute("data-theme", theme)
     localStorage.setItem("theme", theme)
-    updateThemeToggleButton(theme) 
+    updateThemeToggleButton(theme)
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
       if (theme === "light") {
-      logoImage.src = "/static/images/logo1.png"
+        logoImage.src = "{{ url_for('static', filename='images/logo2.png') }}" // Utilise le logo noir pour le thème clair
       } else {
-      logoImage.src = "/static/images/logo1.png"
+        logoImage.src = "{{ url_for('static', filename='images/logo1.png') }}" // Utilise le logo blanc pour le thème sombre
       }
     }
   }
@@ -141,8 +141,8 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <div class="result-content">
               <p>Votre mot de passe a été trouvé dans <span class="highlight-number">${pwnCount.toLocaleString("fr-FR").replace(/\u202F/g, " ")}</span> fuites de données.</p>
-              <p>Action recommandée : Changez votre mot de passe immédiatement à l'aide de notre <a href="{{ url_for('generateur_mot_de_passe') }}" class="action-link">générateur de mot de passe</a>.</p>
-            </div> 
+              <p>Action recommandée : Changez votre mot de passe immédiatement à l'aide de notre <a href="generateur-mot-de-passe.html" class="action-link">générateur de mot de passe</a>.</p>
+            </div>
           `
         } else {
           resultCard.classList.add("good", "no-data-found")
@@ -183,34 +183,57 @@ document.addEventListener("DOMContentLoaded", () => {
                   <div class="api-name-tag">${apiNameTag}</div>
                   <div class="no-results-content">
                       <p class="no-results-text"><strong>✅ Aucun résultat</strong></p>
+                      <p class="no-results-text-small">Votre adresse email n'a pas été trouvée dans les fuites de données connues.</p>
                   </div>
               `
           } else {
             resultCard.classList.add("bad")
-            const breachesListHtml = breaches
-              .map(
-                (breach) => `
-                  <li>
-                      <strong>${breach.Title}</strong> (${breach.Domain}) - Date de la fuite: ${new Date(breach.BreachDate).toLocaleDateString("fr-FR")}
-                      <p>${breach.Description}</p>
-                      ${breach.DataClasses && breach.DataClasses.length > 0 ? `<p>Données exposées: ${breach.DataClasses.join(", ")}</p>` : ""}
-                  </li>
-              `,
-              )
-              .join("")
+            // Structure principale de la carte de résultats pour l'email
+            const mainCardHtml = `
+                <div class="api-name-tag">${apiNameTag}</div>
+                <div class="result-header">
+                    <div class="result-icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
+                    <h3 class="result-title">Données compromises</h3>
+                </div>
+                <div class="result-content">
+                    <p>Votre adresse email a été trouvée dans <span class="highlight-number">${breaches.length}</span> fuite(s) de données :</p>
+                    <p>Action recommandée : Changez votre mot de passe pour les services concernés et activez l'authentification à deux facteurs.</p>
+                    <div class="breaches-list-container">
+                        <!-- Les cartes de fuites individuelles seront insérées ici par JS -->
+                    </div>
+                </div>
+            `
+            resultCard.innerHTML = mainCardHtml
+            const breachesListContainer = resultCard.querySelector(".breaches-list-container")
 
-            resultCard.innerHTML = `
-                  <div class="api-name-tag">${apiNameTag}</div>
-                  <div class="result-header">
-                      <div class="result-icon-container"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-circle"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div>
-                      <h3 class="result-title">Données compromises</h3>
-                  </div>
-                  <div class="result-content">
-                      <p>Votre adresse email a été trouvée dans <span class="highlight-number">${breaches.length}</span> fuite(s) de données :</p>
-                      <ul>${breachesListHtml}</ul>
-                      <p>Action recommandée : Changez votre mot de passe pour les services concernés et activez l'authentification à deux facteurs.</p>
-                  </div>
-              `
+            breaches.forEach((breach) => {
+              const breachItemCard = document.createElement("div")
+              breachItemCard.classList.add("breach-item-card")
+
+              const publishedDate = breach.BreachDate
+                ? new Date(breach.BreachDate).toLocaleDateString("fr-FR", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                : "Date inconnue"
+
+              const dataClassesHtml =
+                breach.DataClasses && breach.DataClasses.length > 0
+                  ? `<p class="breach-data-classes"><strong>Données exposées:</strong> <span>${breach.DataClasses.join(", ")}</span></p>`
+                  : ""
+
+              breachItemCard.innerHTML = `
+                    <div class="breach-item-header">
+                        <h4 class="breach-domain">${breach.Domain}</h4>
+                        <span class="breach-date">${publishedDate}</span>
+                    </div>
+                    <h5 class="breach-title">${breach.Title}</h5>
+                    <p class="breach-description">${breach.Description}</p>
+                    ${dataClassesHtml}
+                `
+              breachesListContainer.appendChild(breachItemCard)
+            })
           }
         } else {
           const errorData = await response.json().catch(() => ({ message: response.statusText }))
@@ -280,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   })
-  
+
   // Écoute les événements de défilement pour basculer la visibilité de la barre de navigation
   window.addEventListener("scroll", handleScroll)
 
