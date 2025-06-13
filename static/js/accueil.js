@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
           })
         }, 350)
       } else if (selectedCategory === "email") {
-  const API_KEY = HIBP_API_KEY // Récupère la clé API injectée par Flask
+        const API_KEY = typeof HIBP_API_KEY !== "undefined" ? HIBP_API_KEY : null // Récupère la clé API injectée par Flask
         if (!API_KEY) {
           throw new Error("Clé API HaveIBeenPwned non configurée. Veuillez contacter l'administrateur.")
         }
