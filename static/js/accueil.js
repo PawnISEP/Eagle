@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   })
-
+  
   // Écoute les événements de défilement pour basculer la visibilité de la barre de navigation
   window.addEventListener("scroll", handleScroll)
 
