@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const setTheme = (theme) => {
     body.setAttribute("data-theme", theme)
     localStorage.setItem("theme", theme)
-    updateThemeToggleButton(theme)
+    updateThemeToggleButton(theme) 
     // Met à jour la source de l'image du logo en fonction du thème
     if (logoImage) {
       if (theme === "light") {
