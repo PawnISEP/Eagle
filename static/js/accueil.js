@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const presentationSection = document.querySelector(".presentation-section")
   const faqSection = document.getElementById("faq-section")
   const logoImage = document.querySelector(".logo-image")
+  const passwordToggle = document.getElementById("password-toggle")
+  const passwordToggleIcon = passwordToggle.querySelector("svg")
 
   // Décalage pour le défilement (20px d'espace)
   const SCROLL_OFFSET = 20
@@ -620,6 +622,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Écoute les événements de défilement pour basculer la visibilité de la barre de navigation
   window.addEventListener("scroll", handleScroll)
+
+  if (dropdownChoice.value === "password") {
+    searchInput.type = "password"
+    passwordToggle.classList.remove("hidden")
+  }
 
   // Mise à jour initiale du nombre de cyberattaques
   updateCyberAttackNumber()
